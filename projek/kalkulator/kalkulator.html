@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .calculator-display {
+            width: 100%;
+            height: 50px;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            text-align: right;
+            padding: 10px;
+            font-size: 24px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .calculator-buttons button {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .calculator-buttons button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="calculator-display">0</div>
+        <div class="calculator-buttons">
+            <button>C</button>
+            <button>/</button>
+            <button>*</button>
+            <button>DEL</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>-</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>+</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>=</button>
+            <button>0</button>
+            <button>.</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.querySelector('.calculator-display');
+        const buttons = document.querySelectorAll('.calculator-buttons button');
+        let currentInput = '';
+        let result = '';
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+
+                if (value === 'C') {
+                    currentInput = '';
+                    result = '';
+                    display.textContent = '0';
+                } else if (value === 'DEL') {
+                    currentInput = currentInput.slice(0, -1);
+                    display.textContent = currentInput || '0';
+                } else if (value === '=') {
+                    try {
+                        result = eval(currentInput);
+                        display.textContent = result;
+                        currentInput = result;
+                    } catch {
+                        display.textContent = 'Error';
+                        currentInput = '';
+                    }
+                } else {
+                    currentInput += value;
+                    display.textContent = currentInput;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
